@@ -3,3 +3,4 @@ node_modules/
 botforms/settings/local.py
 .DS_Store
 .vscode/
+db.sqlite3
