@@ -1,0 +1,25 @@
+{
+  "name": "botform",
+  "homepage": "https://github.com/felixcheruiyot/botforms",
+  "authors": [
+    "Felix Cheruiyot <felix.cheruiyot@kenyaapps.net>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ng-formio": "^2.25.1",
+    "angular": "angularjs#^1.6.6",
+    "ng-formio-builder": "^2.25.2",
+    "bootstrap": "^3.3.7"
+  }
+}
