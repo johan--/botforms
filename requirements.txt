@@ -1,1 +1,11 @@
-wheel==0.26.0
+celery==4.1.0
+dj-database-url==0.4.2
+Django==1.11.7
+django-filter==1.1.0
+djangorestframework==3.7.3
+django-solo==1.1.2
+gunicorn==19.7.1
+psycopg2==2.7.3.2
+redis==2.10.6
+requests==2.18.4
+whitenoise==3.3.1

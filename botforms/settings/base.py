@@ -122,3 +122,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public'), ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+
+# Celery Settings
+CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+
+CELERY_ACCEPT_CONTENT = ['application/json']
+
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_TASK_SERIALIZER = 'json'
+
+CELERY_TIMEZONE = TIME_ZONE
