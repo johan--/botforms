@@ -1,0 +1,5 @@
+*.pyc
+node_modules/
+botforms/settings/local.py
+.DS_Store
+.vscode/
