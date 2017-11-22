@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Manage form</h4>
+                </div>
+                <div class="panel-body">
+                    <div>       
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Form</a></li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Submissions</a></li>
+                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Notification Setting</a></li>
+                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">PDF Output Template</a></li>
+                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Webhook</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">...</div>
+                            <div role="tabpanel" class="tab-pane" id="profile">...</div>
+                            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+                            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // angular.module("formBuilder", 
+    //     [
+    //         "ui.bootstrap", 
+    //         "ui.select", 
+    //         "formio", 
+    //         "ngFormBuilder"
+    //     ])
+    //     .factory('formBuilderService', function ($http, $q, $rootScope) {
+    //         return {
+    //             createForm: function (payload) {
+    //                 var deferred = $q.defer();
+    //                 $http({
+    //                     method: 'POST',
+    //                     url: '/api/v1/forms/',
+    //                     data: payload,
+    //                     params: {format: 'json'}
+    //                 }).then(function (response) {
+    //                     deferred.resolve(response.data);
+    //                 }).catch(function (err) {
+    //                     deferred.reject(err);
+    //                 });
+    //                 return deferred.promise;
+    //             }
+    //         }
+    //     })
+    //     .controller('formBuilderController', 
+    //         ["$scope", "formioComponents", "$timeout", "formBuilderService", 
+    //             function($scope, formioComponents, $timeout, formBuilderService){
+    //                 $scope.form = {
+    //                     title: null,
+    //                     description: null,
+    //                     schema: {
+    //                         components: [{}],
+    //                         display: 'form',
+    //                         _id: 1
+    //                     }
+    //                 };
+
+    //                 // Save form
+    //                 $scope.saveFormBtn = function() {
+    //                     var payload = {
+    //                         title: $scope.form.title,
+    //                         description: $scope.form.description,
+    //                         schema: JSON.stringify($scope.form.schema)
+    //                     }
+    //                     return formBuilderService.createForm(payload).then(function (res) {
+    //                         window.location.href = '/'
+    //                     }).catch(function (err) {
+    //                         console.log(err);
+    //                     });
+    //                 }
+                    
+    //             }
+    //         ]
+    //     );
+</script>
+{% endblock %}

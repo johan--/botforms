@@ -25,9 +25,9 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-default">
+                            <a href="/" class="btn btn-default">
                                 Cancel
-                            </button>
+                            </a>
                             <button class="btn btn-primary" ng-click="saveFormBtn()">
                                 <i class="fa fa-check"></i> Save
                             </button>
@@ -83,8 +83,13 @@
 
                     // Save form
                     $scope.saveFormBtn = function() {
-                        return formBuilderService.createForm($scope.form).then(function (res) {
-                            alert('Saved')
+                        var payload = {
+                            title: $scope.form.title,
+                            description: $scope.form.description,
+                            schema: JSON.stringify($scope.form.schema)
+                        }
+                        return formBuilderService.createForm(payload).then(function (res) {
+                            window.location.href = '/'
                         }).catch(function (err) {
                             console.log(err);
                         });

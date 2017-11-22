@@ -18,14 +18,22 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Form</th>
+                                <th class="col-md-6">Form</th>
+                                <th class="col-md-3">Submissions</th>
+                                <th class="col-md-3">Created</th>
                             </tr>
                         </thead>      
                         <tbody>
                             {% for form in forms%}
                             <tr>
                                 <td>
-                                    <a href="/">{{for.title}}</a>
+                                    <a href="{% url 'form:manage_form' form.id %}">{{form.title}}</a>
+                                </td>
+                                <td>
+                                    {{form.submissions.count}}        
+                                </td>
+                                <td>
+                                    {{form.created_at|date:'d M Y'}}        
                                 </td>
                             </tr>
                             {% empty %}
