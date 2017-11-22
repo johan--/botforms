@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% verbatim %}
+<div class="container" ng-app="formBuilder">
+    <div class="row">
+        <div class="col-md-12" ng-controller="formBuilderController">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Add form</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label">Title</label>
+                        <input type="text" class="form-control" ng-model="form.title" required placeholder="ex. Order form">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <input type="text" class="form-control" ng-model="form.description" placeholder="Optional description">
+                    </div>
+                    <div class="form-designer">
+                        <form-builder form="form.schema"></form-builder>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default">
+                                Cancel
+                            </button>
+                            <button class="btn btn-primary" ng-click="saveFormBtn()">
+                                <i class="fa fa-check"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    angular.module("formBuilder", 
+        [
+            "ui.bootstrap", 
+            "ui.select", 
+            "formio", 
+            "ngFormBuilder"
+        ])
+        .factory('formBuilderService', function ($http, $q, $rootScope) {
+            return {
+                createForm: function (payload) {
+                    var deferred = $q.defer();
+                    $http({
+                        method: 'POST',
+                        url: '/api/v1/forms/',
+                        data: payload,
+                        params: {format: 'json'}
+                    }).then(function (response) {
+                        deferred.resolve(response.data);
+                    }).catch(function (err) {
+                        deferred.reject(err);
+                    });
+                    return deferred.promise;
+                }
+            }
+        })
+        .controller('formBuilderController', 
+            ["$scope", "formioComponents", "$timeout", "formBuilderService", 
+                function($scope, formioComponents, $timeout, formBuilderService){
+                    $scope.form = {
+                        title: null,
+                        description: null,
+                        schema: {
+                            components: [{}],
+                            display: 'form',
+                            _id: 1
+                        }
+                    };
+
+                    // Save form
+                    $scope.saveFormBtn = function() {
+                        return formBuilderService.createForm($scope.form).then(function (res) {
+                            alert('Saved')
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
+                    }
+                    
+                }
+            ]
+        );
+</script>
+{% endblock %}

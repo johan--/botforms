@@ -16,10 +16,10 @@
     <!-- Main CSS  Files   -->
     <link rel="stylesheet" href="{% static 'plugins/bootstrap/dist/css/bootstrap.min.css' %}">
     <!-- Form io files -->
-    <link rel="stylesheet" href="{% static 'plugins/ng-tags-input/css/ng-tags-input.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/ng-dialog/css/ngDialog.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/ng-formio/dist/formio.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'plugins/ng-tags-input/ng-tags-input.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/ng-dialog/css/ngDialog.min.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'plugins/ng-formio/dist/formio-complete.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder-complete.min.css' %}">
 
     <!-- App CSS -->
     <link href="{% static 'css/app.css' %}" rel="stylesheet" />
@@ -31,14 +31,7 @@
 
 <div class="wrapper">
     {% block menu %} {% include 'menu.html' %} {% endblock %}
-    <div class="container">
-        <div class="col-md-4 col-xs-12">
-            {% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
-        </div>
-        <div class="col-md-8 col-xs-12">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
+    {% block content %}{% endblock %}
 </div>
 
 </body>
@@ -54,23 +47,23 @@
     <script src="{% static 'plugins/moment/min/moment.min.js' %}"></script>
 
     <script src="{% static 'plugins/angular/angular.min.js' %}"></script>
-    <script src="{% static 'plugins/angular-botstrap/ui-bootstrap.min.js' %}"></script>
+    <!-- <script src="{% static 'plugins/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
     <script src="{% static 'plugins/angular-ckeditor/angular-ckeditor.js' %}"></script>
-    <script src="{% static 'plugins/angular-drag-and-drop-list/angular-drag-and-drop-list.min.js' %}"></script>
-    <script src="{% static 'plugins/angular-file-saver/dist/angular-file-saver-bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js' %}"></script>
+    <script src="{% static 'plugins/angular-file-saver/dist/angular-file-saver.min.js' %}"></script>
     <script src="{% static 'plugins/angular-moment/angular-moment.min.js' %}"></script>
     <script src="{% static 'plugins/angular-sanitize/angular-sanitize.min.js' %}"></script>
-    <script src="{% static 'plugins/angular-ui-ace/angular-ui-ace.min.js' %}"></script>
+    <script src="{% static 'plugins/angular-ui-ace/ui-ace.min.js' %}"></script>
     <script src="{% static 'plugins/angular-ui-mask/dist/mask.min.js' %}"></script>
     <script src="{% static 'plugins/angular-ui-select/dist/select.min.js' %}"></script>
     <script src="{% static 'plugins/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js' %}"></script>
     <script src="{% static 'plugins/ng-dialog/js/ngDialog.min.js' %}"></script>
-    <script src="{% static 'plugins/ng-file-upload/js/ng-file-upload.min.js' %}"></script>
-    <script src="{% static 'plugins/ng-tags-input/dist/ng-tags-input.min.js' %}"></script>
+    <script src="{% static 'plugins/ng-file-upload/ng-file-upload.min.js' %}"></script>
+    <script src="{% static 'plugins/ng-tags-input/ng-tags-input.min.js' %}"></script> -->
 
     <!-- Form IO Plugins -->
-    <script src="{% static 'plugins/ng-formio/dist/formio.min.js' %}"></script>
-    <script src="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder.min.js' %}"></script>
+    <script src="{% static 'plugins/ng-formio/dist/formio-complete.min.js' %}"></script>
+    <script src="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder-complete.min.js' %}"></script>
 
     <!-- Other Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>

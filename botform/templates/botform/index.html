@@ -1,5 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-Bot form index
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Forms list
+                        <span class="pull-right">
+                            <a href="{% url 'form:create_form' %}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-plus"></i> Add Form
+                            </a>
+                        </span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Form</th>
+                            </tr>
+                        </thead>      
+                        <tbody>
+                            {% for form in forms%}
+                            <tr>
+                                <td>
+                                    <a href="/">{{for.title}}</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td>
+                                    No form found.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

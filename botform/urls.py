@@ -1,9 +1,10 @@
 from django.conf.urls import url, include
 
-from .views import index_view
+from .views import index_view, create_form_view
 
 urlpatterns = [
     url(r'^', include([
         url(r'^$', index_view, name='index'),
-    ], namespace='botform')),
+        url(r'^create/', create_form_view, name='create_form'),
+    ], namespace='form')),
 ]
