@@ -41,6 +41,8 @@ angular.module("formManager",
         function($scope, formioComponents, $timeout, formManagerService){
             $scope.form = null;
             $scope.form_id = location.pathname.split('/')[2];
+            $scope.host = location.origin;
+            $scope.share_url = $scope.host+'/'+$scope.form_id+'/share';
 
             // Get form on init
             $scope.getForm = function() {

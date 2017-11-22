@@ -21,7 +21,8 @@
     "angular": "angularjs#^1.6.6",
     "ng-formio-builder": "^2.25.2",
     "bootstrap": "^3.3.7",
-    "ng-formio-grid": "^1.2.1"
+    "ng-formio-grid": "^1.2.1",
+    "angular-ckeditor": "^1.0.3"
   },
   "resolutions": {
     "angular": "^1.6.6"
