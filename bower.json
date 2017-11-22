@@ -20,6 +20,10 @@
     "ng-formio": "^2.25.1",
     "angular": "angularjs#^1.6.6",
     "ng-formio-builder": "^2.25.2",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "ng-formio-grid": "^1.2.1"
+  },
+  "resolutions": {
+    "angular": "^1.6.6"
   }
 }

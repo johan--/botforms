@@ -12,7 +12,7 @@ class FormsViewSet(viewsets.ModelViewSet):
     queryset = Forms.objects.all()
     serializer_class = FormsSer
 
-    def get_serializers(self):
+    def get_serializer_class(self):
         if self.action == 'retrieve':
             return FormsWithSubmissionsSer
         return FormsSer

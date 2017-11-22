@@ -1,19 +1,26 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'plugins/ng-formio-grid/dist/ng-formio-grid-full.min.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container">
+{% verbatim %}
+<div class="container" ng-app="formManager">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" ng-controller="formManagerController">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>Manage form</h4>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" ng-init="getForm()">
                     <div>       
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Form</a></li>
-                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Submissions</a></li>
+                            <li role="presentation" class="active"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">Form</a></li>
+                            <li role="presentation"><a href="#submissions" aria-controls="submissions" role="tab" data-toggle="tab">Submissions</a></li>
                             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Notification Setting</a></li>
                             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">PDF Output Template</a></li>
                             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Webhook</a></li>
@@ -21,8 +28,47 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">...</div>
-                            <div role="tabpanel" class="tab-pane" id="profile">...</div>
+                            <div role="tabpanel" class="tab-pane active" id="form">
+                                <div class="row">
+                                    <!-- Update form details -->
+                                    <div class="col-md-6">
+                                        <h4>Update form</h4>
+                                        <form>
+                                            <div class="form-group">
+                                                <label class="control-label">Title</label>
+                                                <input type="text" ng-model="form.title" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Description</label>
+                                                <textarea rows="2" ng-model="form.description" class="form-control"></textarea>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-primary" ng-click="saveFormDetails()">
+                                                        <i class="fa fa-check"></i> Save Changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Publish links -->
+                                    <div class="col-md-6">
+                                        <h4>Publish and Share</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                Link - http://link to form
+                                            </div>
+                                            <div class="col-md-12">
+                                                Iframe snippset
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="submissions">
+                                <formio-grid src="'https://myapp.form.io/myform'"></formio-grid>
+                            </div>
                             <div role="tabpanel" class="tab-pane" id="messages">...</div>
                             <div role="tabpanel" class="tab-pane" id="settings">...</div>
                         </div>
@@ -32,64 +78,10 @@
         </div>
     </div>
 </div>
+{% endverbatim %}
 {% endblock %}
 
 {% block extra_scripts %}
-<script>
-    // angular.module("formBuilder", 
-    //     [
-    //         "ui.bootstrap", 
-    //         "ui.select", 
-    //         "formio", 
-    //         "ngFormBuilder"
-    //     ])
-    //     .factory('formBuilderService', function ($http, $q, $rootScope) {
-    //         return {
-    //             createForm: function (payload) {
-    //                 var deferred = $q.defer();
-    //                 $http({
-    //                     method: 'POST',
-    //                     url: '/api/v1/forms/',
-    //                     data: payload,
-    //                     params: {format: 'json'}
-    //                 }).then(function (response) {
-    //                     deferred.resolve(response.data);
-    //                 }).catch(function (err) {
-    //                     deferred.reject(err);
-    //                 });
-    //                 return deferred.promise;
-    //             }
-    //         }
-    //     })
-    //     .controller('formBuilderController', 
-    //         ["$scope", "formioComponents", "$timeout", "formBuilderService", 
-    //             function($scope, formioComponents, $timeout, formBuilderService){
-    //                 $scope.form = {
-    //                     title: null,
-    //                     description: null,
-    //                     schema: {
-    //                         components: [{}],
-    //                         display: 'form',
-    //                         _id: 1
-    //                     }
-    //                 };
-
-    //                 // Save form
-    //                 $scope.saveFormBtn = function() {
-    //                     var payload = {
-    //                         title: $scope.form.title,
-    //                         description: $scope.form.description,
-    //                         schema: JSON.stringify($scope.form.schema)
-    //                     }
-    //                     return formBuilderService.createForm(payload).then(function (res) {
-    //                         window.location.href = '/'
-    //                     }).catch(function (err) {
-    //                         console.log(err);
-    //                     });
-    //                 }
-                    
-    //             }
-    //         ]
-    //     );
-</script>
+<script src="{% static 'plugins/ng-formio-grid/dist/ng-formio-grid-full.min.js' %}"></script>
+<script src="{% static 'js/form-manager.js' %}"></script>
 {% endblock %}
