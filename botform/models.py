@@ -31,8 +31,7 @@ def on_new_submission(sender, instance, created, **kwargs):
     try:
         if created and instance.form.generate_pdf:
             submission_id = instance.pk
-            # TODO: Activate background processes
-            generate_pdf({'submission_id': submission_id})
+            generate_pdf.delay({'submission_id': submission_id})
     except Exception as ex:
         print(str(ex))
 post_save.connect(on_new_submission, sender=Submissions)
