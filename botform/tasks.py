@@ -2,6 +2,8 @@ from celery import task
 from xhtml2pdf import pisa
 from slugify import slugify
 from django.conf import settings
+from django.forms.models import model_to_dict
+from django.template import loader, Context, Template
 
 def convertHtmlToPdf(sourceHtml, outputFilename):
     """
@@ -24,5 +26,14 @@ def generate_pdf(payload):
 
     form_slug = slugify(form_obj.title)
     file_name = '%s/%s-%s.pdf' % (settings.MEDIA_ROOT, form_slug, submission_id)
-    source_html = form_obj.pdf_output_template
+
+    context = Context(
+        {
+            'FORM': model_to_dict(form_obj),
+            'SUBMISSION': model_to_dict(submission_obj)
+        }
+    )
+    pdf_output_template = form_obj.pdf_output_template
+    template = Template(str(pdf_output_template))
+    source_html = template.render(context)
     convertHtmlToPdf(source_html, file_name)
