@@ -19,6 +19,16 @@ class FormsViewSet(viewsets.ModelViewSet):
             return FormsWithSubmissionsSer
         return FormsSer
 
+    @detail_route(methods=['PUT',])
+    def design(self, request, pk):
+        form_obj = self.get_object()
+        data = request.data
+        # Save design changes
+        form_obj.schema = data.get('schema')
+        form_obj.save()
+        ser_data = FormsSer(form_obj, many=False).data
+        return Response(ser_data)
+
 class SubmissionsViewSet(viewsets.ModelViewSet):
     """
     Form submission API

@@ -19,8 +19,9 @@
                     <div>       
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">Form</a></li>
+                            <li role="presentation" class="active"><a href="#form-basic" aria-controls="form-basic" role="tab" data-toggle="tab">Form</a></li>
                             <li role="presentation"><a href="#submissions" aria-controls="submissions" role="tab" data-toggle="tab">Submissions</a></li>
+                            <li role="presentation"><a href="#form-design" aria-controls="form-design" role="tab" data-toggle="tab">Design</a></li>
                             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Notification Setting</a></li>
                             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">PDF Output</a></li>
                             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Webhook</a></li>
@@ -28,7 +29,7 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="form">
+                            <div role="tabpanel" class="tab-pane active" id="form-basic">
                                 <div class="row">
                                     <!-- Update form details -->
                                     <div class="col-md-6">
@@ -71,7 +72,23 @@
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="submissions">
-                                <formio-grid src="submissions_url"></formio-grid>
+                                <formio-grid src="form_details_url"></formio-grid>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="form-design">
+                                <div ng-if="form_schema">
+                                    <div class="alert alert-warning">
+                                        Changing form design may lead to data inconsistency incase submissions have already been made.
+                                    </div>
+                                    <form-builder form="form_schema"></form-builder>
+                                    <!-- Save new form design -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-block btn-primary" ng-click="updateFormDesign()">
+                                                <i class="fa fa-check"></i> Save Changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="messages">...</div>
                             <div role="tabpanel" class="tab-pane" id="settings">...</div>
