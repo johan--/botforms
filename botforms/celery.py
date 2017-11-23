@@ -10,7 +10,7 @@ BASE_PATH = os.path.dirname(os.path.abspath('manage.py'))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'botforms.settings')
 
-app = Celery('botforms', broker=os.environ.get('REDIS_URL'))
+app = Celery('botforms')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.
