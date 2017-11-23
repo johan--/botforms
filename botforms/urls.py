@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^api/v1/forms/(?P<pk>\d+)/details/?$', form_api.grid_details),
     url(r'^api/v1/forms/(?P<pk>\d+)/details/submission/?$', form_api.grid_submissions),
     url(r'^', include('botform.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 ]
