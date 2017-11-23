@@ -28,6 +28,7 @@ def generate_pdf(payload):
 
     form_slug = slugify(form_obj.title)
     file_name = '%s/%s-%s.pdf' % (settings.MEDIA_ROOT, form_slug, submission_id)
+    pdf_url = '%s/%s-%s.pdf' % (settings.MEDIA_URL, form_slug, submission_id)
 
     context = Context(
         {
@@ -39,4 +40,8 @@ def generate_pdf(payload):
     pdf_output_template = form_obj.pdf_output_template
     template = Template(str(pdf_output_template))
     source_html = template.render(context)
-    convertHtmlToPdf(source_html, file_name)
+    pdf_generated = convertHtmlToPdf(source_html, file_name)
+    if pdf_generated:
+        submission_obj.pdf = pdf_url
+        submission_obj.save()
+

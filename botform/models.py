@@ -22,7 +22,8 @@ class Forms(models.Model):
 class Submissions(models.Model):
     form = models.ForeignKey(Forms, related_name="submissions")
     data = models.TextField(blank=True, null=True, help_text="JSON rep of user input")
-
+    pdf = models.URLField(max_length=400, blank=True, null=True, help_text='PDF Output URL')
+    
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
