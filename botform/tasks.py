@@ -5,6 +5,7 @@ from django.conf import settings
 from django.forms.models import model_to_dict
 from django.template import loader, Context, Template
 import json
+import os
 
 def convertHtmlToPdf(sourceHtml, outputFilename):
     """
@@ -31,8 +32,9 @@ def generate_pdf(payload):
     submission_data = json.loads(submission_obj.data)
 
     form_slug = slugify(form_obj.title)
+    domain = os.environ.get('DOMAIN')
     file_name = '%s/%s-%s.pdf' % (settings.MEDIA_ROOT, form_slug, submission_id)
-    pdf_url = '%s/%s-%s.pdf' % (settings.MEDIA_URL, form_slug, submission_id)
+    pdf_url = 'http://%s%s/%s-%s.pdf' % (domain, settings.MEDIA_URL, form_slug, submission_id)
 
     context = Context(
         {
