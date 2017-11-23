@@ -40,9 +40,10 @@ angular.module("formManager",
     ["$scope", "formioComponents", "$timeout", "formManagerService", 
         function($scope, formioComponents, $timeout, formManagerService){
             $scope.form = null;
-            $scope.form_id = location.pathname.split('/')[2];
+            $scope.form_id = location.pathname.split('/')[1];
             $scope.host = location.origin;
-            $scope.share_url = $scope.host+'/'+$scope.form_id+'/share';
+            $scope.share_url = $scope.host+'/'+$scope.form_id+'/share/';
+            $scope.submissions_url = $scope.host+'/api/v1/forms/'+$scope.form_id+'/details'
 
             // Get form on init
             $scope.getForm = function() {

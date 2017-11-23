@@ -22,6 +22,13 @@ def create_form_view(request):
 
 def manage_form_view(request, pk):
     """
-    Manage form form page
+    Manage form page
     """
     return render(request, 'forms/manage.html',{})
+
+
+def share_form_view(request, pk):
+    """
+    Share form page
+    """
+    return render(request, 'forms/share.html',{})

@@ -8,7 +8,7 @@
 
 {% block content %}
 {% verbatim %}
-<div class="container" ng-app="formManager">
+<div class="container" ng-app="formManager" ng-cloak>
     <div class="row">
         <div class="col-md-12" ng-controller="formManagerController">
             <div class="panel panel-default">
@@ -57,7 +57,7 @@
                                         <h4>Publish and Share</h4>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <a ng-href="share_url" target="_blank" class="btn btn-success">Share Form</a>
+                                                <a href="{{share_url}}" target="_blank" class="btn btn-success">Share Form</a>
                                             </div>
                                             <div class="col-md-12">
                                                 <h3>Embend form to your website</h3>
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="submissions">
-                                <formio-grid src="'https://myapp.form.io/myform'"></formio-grid>
+                                <formio-grid src="submissions_url"></formio-grid>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="messages">...</div>
                             <div role="tabpanel" class="tab-pane" id="settings">...</div>

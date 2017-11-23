@@ -14,7 +14,7 @@ class Forms(models.Model):
 
 class Submissions(models.Model):
     form = models.ForeignKey(Forms, related_name="submissions")
-    payload = models.TextField(blank=True, null=True, help_text="JSON rep of user input")
+    data = models.TextField(blank=True, null=True, help_text="JSON rep of user input")
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)

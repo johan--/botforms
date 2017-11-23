@@ -1,0 +1,24 @@
+{% extends  'base.html' %}
+
+{% load static %}
+
+{% block menu %} {% endblock %}
+
+{% block content %}
+{% verbatim %}
+<div class="container" ng-app="shareForm" ng-cloak>
+    <div class="row">
+        <div class="col-xs-12" ng-controller="shareFormController" ng-init="getForm()">
+            <h1>{{form.title}}</h1>
+            <div class="form-schema">
+                <formio form="schema"></formio>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/share-form.js' %}"></script>
+{% endblock %}
