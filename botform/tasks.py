@@ -10,10 +10,11 @@ def convertHtmlToPdf(sourceHtml, outputFilename):
     """
     Utility function
     """
-    pdf_generated = False
+    pdf_generated = True
     with open(outputFilename, "w+b") as resultFile:
         pisaStatus = pisa.CreatePDF(sourceHtml, dest=resultFile)
-        pdf_generated = pisaStatus.err
+        if pisaStatus.err:
+            pdf_generated = False
     
     return pdf_generated
 
@@ -44,7 +45,6 @@ def generate_pdf(payload):
     template = Template(str(pdf_output_template))
     source_html = template.render(context)
     pdf_generated = convertHtmlToPdf(source_html, file_name)
-    print 'PDF Generated: %s' % pdf_generated
     if pdf_generated:
         submission_obj.pdf = pdf_url
         submission_obj.save()
