@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'plugins/ng-dialog/css/ngDialog.min.css' %}"> -->
     <link rel="stylesheet" href="{% static 'plugins/ng-formio/dist/formio-complete.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder-complete.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/ng-notify/dist/ng-notify.min.css' %}">
 
     <!-- App CSS -->
     <link href="{% static 'css/app.css' %}" rel="stylesheet" />
@@ -66,8 +67,7 @@
     <script src="{% static 'plugins/ng-formio-builder/dist/ngFormBuilder-complete.min.js' %}"></script>
 
     <!-- Other Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
-    <script src="https://cdn.rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+    <script src="{% static 'plugins/ng-notify/dist/ng-notify.min.js' %}"></script>
 
     <!-- Main script -->
     <script src="{% static 'js/app.js' %}"></script>

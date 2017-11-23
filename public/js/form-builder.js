@@ -3,7 +3,8 @@ angular.module("formBuilder",
     "ui.bootstrap", 
     "ui.select", 
     "formio", 
-    "ngFormBuilder"
+    "ngFormBuilder",
+    "ngNotify"
 ])
 .factory('formBuilderService', function ($http, $q, $rootScope) {
     return {
@@ -23,9 +24,12 @@ angular.module("formBuilder",
         }
     }
 })
+.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
+})
 .controller('formBuilderController', 
-    ["$scope", "formioComponents", "$timeout", "formBuilderService", 
-        function($scope, formioComponents, $timeout, formBuilderService){
+    ["$scope", "formioComponents", "$timeout", "formBuilderService", "ngNotify", 
+        function($scope, formioComponents, $timeout, formBuilderService, ngNotify){
             $scope.form = {
                 title: null,
                 description: null,
@@ -35,7 +39,7 @@ angular.module("formBuilder",
                     _id: 1
                 }
             };
-
+            
             // Save form
             $scope.saveFormBtn = function() {
                 var payload = {
@@ -46,7 +50,7 @@ angular.module("formBuilder",
                 return formBuilderService.createForm(payload).then(function (res) {
                     window.location.href = '/'
                 }).catch(function (err) {
-                    console.log(err);
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
             }
             

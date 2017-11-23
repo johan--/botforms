@@ -5,8 +5,12 @@ angular.module("formManager",
     "formio",
     "ngFormioGrid",
     "ngFormBuilder",
-    "ui.tinymce"
+    "ui.tinymce",
+    "ngNotify"
 ])
+.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
+})
 .factory('formManagerService', function ($http, $q, $rootScope) {
     return {
         getForm: function (form_id) {
@@ -67,8 +71,8 @@ angular.module("formManager",
     }
 })
 .controller('formManagerController', 
-    ["$scope", "formioComponents", "$timeout", "formManagerService", 
-        function($scope, formioComponents, $timeout, formManagerService){
+    ["$scope", "formioComponents", "$timeout", "formManagerService", "ngNotify",
+        function($scope, formioComponents, $timeout, formManagerService, ngNotify){
             $scope.form = null;
             $scope.form_schema = null;
             $scope.form_id = location.pathname.split('/')[1];
@@ -89,7 +93,7 @@ angular.module("formManager",
                     $scope.generate_pdf = res.generate_pdf;
                     $scope.pdf_output_template = res.pdf_output_template;
                 }).catch(function (err) {
-                    console.log(err);
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
             }
             
@@ -101,8 +105,10 @@ angular.module("formManager",
                 };
                 return formManagerService.saveFormDetails($scope.form_id, payload).then(function (res) {
                     $scope.form = res;
+                    ngNotify.set('Form saved');
                 }).catch(function (err) {
                     console.log(err);
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
             }
 
@@ -112,9 +118,10 @@ angular.module("formManager",
                     schema: JSON.stringify($scope.form_schema)
                 }
                 return formManagerService.saveFormDesign($scope.form_id, payload).then(function (res) {
-                    alert('Saved');
+                    ngNotify.set('Form design updated');
                 }).catch(function (err) {
                     console.log(err);
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
             }
 
@@ -125,9 +132,9 @@ angular.module("formManager",
                     pdf_output_template: $scope.pdf_output_template
                 }
                 return formManagerService.savePDFOutputSetting($scope.form_id, payload).then(function (res) {
-                    alert('Saved');
+                    ngNotify.set('PDF Output preference updated');
                 }).catch(function (err) {
-                    console.log(err);
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
             }
         }
