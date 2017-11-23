@@ -4,7 +4,8 @@ angular.module("formManager",
     "ui.select", 
     "formio",
     "ngFormioGrid",
-    "ngFormBuilder"
+    "ngFormBuilder",
+    "ui.tinymce"
 ])
 .factory('formManagerService', function ($http, $q, $rootScope) {
     return {
@@ -48,6 +49,20 @@ angular.module("formManager",
                 deferred.reject(err);
             });
             return deferred.promise;
+        },
+        savePDFOutputSetting: function (form_id, payload) {
+            var deferred = $q.defer();
+            $http({
+                method: 'PUT',
+                url: '/api/v1/forms/'+form_id+'/pdf_output_setting/',
+                data: payload,
+                params: {format: 'json'}
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
         }
     }
 })
@@ -61,11 +76,18 @@ angular.module("formManager",
             $scope.share_url = $scope.host+'/'+$scope.form_id+'/share/';
             $scope.form_details_url = $scope.host+'/api/v1/forms/'+$scope.form_id+'/details'
 
+            // Generate documents
+            $scope.generate_pdf = false;
+            $scope.pdf_output_template = null;
+            $scope.tinymceOptions = TINYMCE_OPTIONS;
+
             // Get form on init
             $scope.getForm = function() {
                 return formManagerService.getForm($scope.form_id).then(function (res) {
                     $scope.form = res;
                     $scope.form_schema = JSON.parse(res.schema);
+                    $scope.generate_pdf = res.generate_pdf;
+                    $scope.pdf_output_template = res.pdf_output_template;
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -90,6 +112,19 @@ angular.module("formManager",
                     schema: JSON.stringify($scope.form_schema)
                 }
                 return formManagerService.saveFormDesign($scope.form_id, payload).then(function (res) {
+                    alert('Saved');
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+
+            // Save PDF output settings
+            $scope.updatePDFOutputSettings = function() {
+                var payload = {
+                    generate_pdf: $scope.generate_pdf,
+                    pdf_output_template: $scope.pdf_output_template
+                }
+                return formManagerService.savePDFOutputSetting($scope.form_id, payload).then(function (res) {
                     alert('Saved');
                 }).catch(function (err) {
                     console.log(err);

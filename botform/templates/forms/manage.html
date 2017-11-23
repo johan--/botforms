@@ -22,9 +22,9 @@
                             <li role="presentation" class="active"><a href="#form-basic" aria-controls="form-basic" role="tab" data-toggle="tab">Form</a></li>
                             <li role="presentation"><a href="#submissions" aria-controls="submissions" role="tab" data-toggle="tab">Submissions</a></li>
                             <li role="presentation"><a href="#form-design" aria-controls="form-design" role="tab" data-toggle="tab">Design</a></li>
-                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Notification Setting</a></li>
-                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">PDF Output</a></li>
-                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Webhook</a></li>
+                            <li role="presentation"><a href="#notifications" aria-controls="notifications" role="tab" data-toggle="tab">Notification Settings</a></li>
+                            <li role="presentation"><a href="#pdf-output" aria-controls="pdf-output" role="tab" data-toggle="tab">PDF Output</a></li>
+                            <li role="presentation"><a href="#webhook" aria-controls="webhook" role="tab" data-toggle="tab">Webhook</a></li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -90,8 +90,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="messages">...</div>
-                            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+
+                            <div role="tabpanel" class="tab-pane" id="pdf-output">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="generate_pdf"> Generate PDF for every submission
+                                    </label>
+                                </div>
+                                <div class="row" ng-show="generate_pdf">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Generated document template</label>
+                                        <textarea ui-tinymce="tinymceOptions" ng-model="pdf_output_template"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-block btn-primary" ng-click="updatePDFOutputSettings()">
+                                            <i class="fa fa-check"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="webhook">...</div>
                         </div>
                     </div>
                 </div>
@@ -103,6 +124,9 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="{% static 'plugins/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'plugins/angular-ui-tinymce/dist/tinymce.min.js' %}"></script>
 <script src="{% static 'plugins/ng-formio-grid/dist/ng-formio-grid-full.min.js' %}"></script>
+<script src="{% static 'js/tinymce-options.js' %}"></script>
 <script src="{% static 'js/form-manager.js' %}"></script>
 {% endblock %}

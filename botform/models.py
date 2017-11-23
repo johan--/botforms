@@ -7,6 +7,10 @@ class Forms(models.Model):
     title = models.CharField(max_length=140)
     description = models.TextField(blank=True, null=True)
     schema = models.TextField(blank=True, null=True, help_text="JSON rep of the form schema")
+
+    # PDF Output fields
+    generate_pdf = models.BooleanField(default=False)
+    pdf_output_template = models.TextField(blank=True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
