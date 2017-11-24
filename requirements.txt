@@ -13,3 +13,4 @@ xhtml2pdf==0.0.6
 html5lib==1.0b8
 python-slugify==1.2.4
 django-allauth==0.34.0
+django-dotenv==1.4.1

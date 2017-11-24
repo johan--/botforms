@@ -6,3 +6,4 @@ botforms/settings/local.py
 db.sqlite3
 public/plugins
 media/
+.env
