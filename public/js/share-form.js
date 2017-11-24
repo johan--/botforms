@@ -4,6 +4,9 @@ angular.module("shareForm",
     "ui.select", 
     "formio", 
 ])
+.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
+})
 .factory('shareFormService', function ($http, $q, $rootScope) {
     return {
         getForm: function (form_id) {
