@@ -36,7 +36,7 @@ def share_form_view(request, pk):
     """
     return render(request, 'forms/share.html',{})
 
-def success_feedback_view(request, pk):
+def success_feedback_view(request):
     """
     Show success page on form save
     """
