@@ -3,6 +3,7 @@ angular.module("shareForm",
     "ui.bootstrap", 
     "ui.select", 
     "formio", 
+    "ngNotify"
 ])
 .config(function ($httpProvider) {
     $httpProvider.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
@@ -39,8 +40,8 @@ angular.module("shareForm",
     }
 })
 .controller('shareFormController', 
-    ["$scope", "formioComponents", "$timeout", "shareFormService", 
-        function($scope, formioComponents, $timeout, shareFormService){
+    ["$scope", "formioComponents", "$timeout", "ngNotify", "shareFormService", 
+        function($scope, formioComponents, $timeout, ngNotify, shareFormService){
             $scope.form = {};
             $scope.schema = {};
             $scope.form_id = location.pathname.split('/')[1];
@@ -64,13 +65,15 @@ angular.module("shareForm",
                         data: JSON.stringify(submission)
                     };
                     shareFormService.saveSubmission(payload).then(function (res) {
-                        alert('Saved')
+                        window.location.href = '/success';
                     }).catch(function (err) {
                         console.log(err);
+                        ngNotify.set(err.data, {sticky: true,type: 'error'});
                     });
                 });
-            } catch (e) {
-                console.log(e);
+            } catch (err) {
+                console.log(err);
+                ngNotify.set(err, {sticky: true,type: 'error'});
             }
         }
     ]
