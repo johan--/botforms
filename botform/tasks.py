@@ -6,6 +6,7 @@ from django.forms.models import model_to_dict
 from django.template import loader, Context, Template
 import json
 import os
+import requests
 
 def convertHtmlToPdf(sourceHtml, outputFilename):
     """
@@ -51,3 +52,19 @@ def generate_pdf(payload):
         submission_obj.pdf = pdf_url
         submission_obj.save()
 
+@task
+def notify_webhook(payload):
+    try:
+        from botform.models import Submissions
+        from botform.serializers import SubmissionsSer
+
+        submission_id = payload.get('submission_id')
+        submission_obj = Submissions.objects.get(pk=submission_id)
+        webhook_url = payload.get('webhook_url')
+
+        req_data = SubmissionsSer(submission_obj, many=False).data
+        res = requests.post(webhook_url, json=req_data)
+        if res.status_code != 200:
+            raise Exception(res.text)
+    except Exception as ex:
+        print "Error: %s " % str(ex)

@@ -40,6 +40,16 @@ class FormsViewSet(viewsets.ModelViewSet):
         ser_data = FormsSer(form_obj, many=False).data
         return Response(ser_data)
 
+    @detail_route(methods=['PUT', ])
+    def webhook_settings(self, request, pk):
+        form_obj = self.get_object()
+        data = request.data
+        
+        form_obj.webhook_url = data.get('webhook_url')
+        form_obj.save()
+        ser_data = FormsSer(form_obj, many=False).data
+        return Response(ser_data)
+
 class SubmissionsViewSet(viewsets.ModelViewSet):
     """
     Form submission API

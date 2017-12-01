@@ -67,6 +67,20 @@ angular.module("formManager",
                 deferred.reject(err);
             });
             return deferred.promise;
+        },
+        saveWebhookSettings: function (form_id, payload) {
+            var deferred = $q.defer();
+            $http({
+                method: 'PUT',
+                url: '/api/v1/forms/'+form_id+'/webhook_settings/',
+                data: payload,
+                params: {format: 'json'}
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
         }
     }
 })
@@ -85,6 +99,9 @@ angular.module("formManager",
             $scope.pdf_output_template = null;
             $scope.tinymceOptions = TINYMCE_OPTIONS;
 
+            // Webhook setting
+            $scope.webhook_url = null;
+
             // Get form on init
             $scope.getForm = function() {
                 return formManagerService.getForm($scope.form_id).then(function (res) {
@@ -92,6 +109,7 @@ angular.module("formManager",
                     $scope.form_schema = JSON.parse(res.schema);
                     $scope.generate_pdf = res.generate_pdf;
                     $scope.pdf_output_template = res.pdf_output_template;
+                    $scope.webhook_url = res.webhook_url;
                 }).catch(function (err) {
                     ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });
@@ -133,6 +151,18 @@ angular.module("formManager",
                 }
                 return formManagerService.savePDFOutputSetting($scope.form_id, payload).then(function (res) {
                     ngNotify.set('PDF Output preference updated');
+                }).catch(function (err) {
+                    ngNotify.set(err.data, {sticky: true,type: 'error'});
+                });
+            }
+
+            // Save webhook settings
+            $scope.updateWebhookSettings = function() {
+                var payload = {
+                    webhook_url: $scope.webhook_url
+                }
+                return formManagerService.saveWebhookSettings($scope.form_id, payload).then(function (res) {
+                    ngNotify.set('Webhook url updated');
                 }).catch(function (err) {
                     ngNotify.set(err.data, {sticky: true,type: 'error'});
                 });

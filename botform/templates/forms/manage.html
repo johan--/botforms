@@ -59,6 +59,10 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <a href="{{share_url}}" target="_blank" class="btn btn-success">Share Form</a>
+                                                <div class="help-block">
+                                                    Append reference/tracking ID for external system e.g http://myformurl?reference=2
+                                                    The reference value will be attached to the submission.
+                                                </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <h3>Embend form to your website</h3>
@@ -112,7 +116,19 @@
                                 </div>
                             </div>
 
-                            <div role="tabpanel" class="tab-pane" id="webhook">...</div>
+                            <div role="tabpanel" class="tab-pane" id="webhook">
+                                <div class="form-group">
+                                    <label class="control-label">Webhook</label>
+                                    <input type="text" ng-model="webhook_url" class="form-control" placeholder="Webhook URL where to send submission result">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-block btn-primary" ng-click="updateWebhookSettings()">
+                                            <i class="fa fa-check"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

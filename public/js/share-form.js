@@ -46,6 +46,20 @@ angular.module("shareForm",
             $scope.schema = {};
             $scope.form_id = location.pathname.split('/')[1];
 
+            // Capture reference id if any
+            $scope.reference = getParameterByName('reference');
+
+            // Get route parameters
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }            
+
             // Get form from the database
             $scope.getForm = function() {
                 return shareFormService.getForm($scope.form_id).then(function (res) {
@@ -62,7 +76,8 @@ angular.module("shareForm",
                     event.stopPropagation();
                     var payload = {
                         form: $scope.form_id,
-                        data: JSON.stringify(submission)
+                        data: JSON.stringify(submission),
+                        reference: $scope.reference
                     };
                     shareFormService.saveSubmission(payload).then(function (res) {
                         window.location.href = '/success';
