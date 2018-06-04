@@ -67,4 +67,4 @@ def notify_webhook(payload):
         if res.status_code != 200:
             raise Exception(res.text)
     except Exception as ex:
-        print "Error: %s " % str(ex)
+        print("Error: %s " % str(ex))
